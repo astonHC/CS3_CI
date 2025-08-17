@@ -109,3 +109,24 @@ void CROSS_UNI(char* PARENT_A, char* PARENT_B, char* CHILD_A, char* CHILD_B)
     CHILD_B[EC_STRLEN] = '\0';
 }
 
+// ALLOWS DYNAMIC SWITCHING BETWEEN DIFFERENT CROSSOVER STRATEGIES
+
+void CROSS_ALL(char* PARENT_A, char* PARENT_B, char* CHILD_A, char* CHILD_B, TYPE CROSS_TYPE)
+{
+    switch(CROSS_TYPE)
+    {
+        case SINGLE:
+            CROSS_SINGLE(PARENT_A, PARENT_B, CHILD_A, CHILD_B);
+            break;
+        case DOUBLE:
+            CROSS_DOUBLE(PARENT_A, PARENT_B, CHILD_A, CHILD_B);
+            break;
+        case UNIFORM:
+            CROSS_UNI(PARENT_A, PARENT_B, CHILD_A, CHILD_B);
+            break;
+        default:
+            ERROR_TRACE(CROSS, TRACE_ERR_CROSSOVER, "INVALID CROSSOVER TYPE: %d", CROSS_TYPE);
+            CROSS_SINGLE(PARENT_A, PARENT_B, CHILD_A, CHILD_B);
+            break;
+    }
+}
