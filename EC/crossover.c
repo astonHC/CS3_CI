@@ -47,3 +47,35 @@ int CROSS_SINGLE(char* PARENT_A, char* PARENT_B, char* CHILD_A, char* CHILD_B)
 
     return CROSS_POINT;
 }
+
+// CREATE A DOUBLE POINT CROSSOVER WHICH SWAPS SEGMENT BETWEEN TWO RANDOM POINTS
+// THIS PROVIDES MORE GENETIC DIVERSITY THAN SINGLE POINT CROSSOVER
+
+int CROSS_DOUBLE(char* PARENT_A, char* PARENT_B, char* CHILD_A, char* CHILD_B)
+{
+    int FIRST_POINT = rand() % EC_STRLEN;
+    int SECOND_POINT = rand() % EC_STRLEN;
+
+    // ENSURE FIRST POINT IS LESS THAN SECOND POINT
+    if(FIRST_POINT > SECOND_POINT)
+    {
+        int TEMP = FIRST_POINT;
+        FIRST_POINT = SECOND_POINT;
+        SECOND_POINT = TEMP;
+    }
+
+    int SEGMENT_LENGTH = SECOND_POINT - FIRST_POINT + 1;
+
+    memcpy(CHILD_A, PARENT_A, FIRST_POINT);                                                         // FIRST SEGMENT
+    memcpy(CHILD_A + FIRST_POINT, PARENT_B + FIRST_POINT, SEGMENT_LENGTH);                          // MIDDLE SEGMENT
+    memcpy(CHILD_A + SECOND_POINT + 1, PARENT_A + SECOND_POINT + 1, EC_STRLEN - SECOND_POINT - 1); // LAST SEGMENT
+
+    memcpy(CHILD_B, PARENT_B, FIRST_POINT);                                                         // FIRST SEGMENT
+    memcpy(CHILD_B + FIRST_POINT, PARENT_A + FIRST_POINT, SEGMENT_LENGTH);                          // MIDDLE SEGMENT
+    memcpy(CHILD_B + SECOND_POINT + 1, PARENT_B + SECOND_POINT + 1, EC_STRLEN - SECOND_POINT - 1); // LAST SEGMENT
+
+    CHILD_A[EC_STRLEN] = '\0';
+    CHILD_B[EC_STRLEN] = '\0';
+
+    return SECOND_POINT - FIRST_POINT;
+}
