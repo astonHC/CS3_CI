@@ -19,10 +19,8 @@
 
 #define     OPT_BASIC           (1 << 0)
 #define     OPT_VERB            (1 << 1)
-#define     OPT_DEBUG           (1 << 2)
-#define     OPT_PERF            (1 << 3)
 
-#define     OPT_ALL             (OPT_BASIC | OPT_VERB | OPT_DEBUG | OPT_PERF)
+#define     OPT_ALL             (OPT_BASIC | OPT_VERB)
 
 typedef enum
 {
@@ -88,11 +86,15 @@ static inline void DISABLE_TRACE_FLAGS(uint8_t FLAGS)
     ENABLED_FLAGS &= ~FLAGS;
 }
 
+#if VERBOSE_TRACE_HOOK
 #define VERBOSE_TRACE(MSG, ...) \
     do { \
         if (VERBOSE_TRACE_HOOK == OPT_ON && IS_TRACE_ENABLED(OPT_VERB)) \
             printf("[VERBOSE] " MSG "\n", ##__VA_ARGS__); \
     } while(0)
+#else
+    #define VERBOSE_TRACE(MSG, ...) ((void)0)
+#endif
 
 #if ERROR_TRACE_HOOK    
     #define ERROR_TRACE(OP, ERR, MSG, ...) \
@@ -105,11 +107,10 @@ static inline void DISABLE_TRACE_FLAGS(uint8_t FLAGS)
 #endif
 
 #define SHOW_TRACE_STATUS() \
-    printf("\nTRACE CONFIG:\n"); \
+    printf("TRACE CONFIG:\n"); \
     printf("  GLOBAL TRACE:      %s\n", TRACE_ENABLED ? "ENABLED" : "DISABLED");                \
     printf("  BASIC TRACE:       %s\n", IS_TRACE_ENABLED(OPT_BASIC) ? "ENABLED" : "DISABLED");  \
     printf("  VERBOSE TRACE:     %s\n", IS_TRACE_ENABLED(OPT_VERB) ? "ENABLED" : "DISABLED");   \
-    printf("  DEBUG TRACE:       %s\n", IS_TRACE_ENABLED(OPT_DEBUG) ? "ENABLED" : "DISABLED");  \
-    printf("  PERFORMANCE TRACE: %s\n", IS_TRACE_ENABLED(OPT_PERF) ? "ENABLED" : "DISABLED");   \
+    printf("\n");
 
 #endif
