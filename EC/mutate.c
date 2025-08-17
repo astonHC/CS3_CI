@@ -8,7 +8,7 @@
 // NESTED INCLUDES
 
 #include "crossover.h"
-#include "../util.h"
+#include "../EC_UTIL.h"
 
 // RANDOMLY CHANGE CHARACTERS WITH BIAS TOWARDS TARGET
 
