@@ -9,7 +9,7 @@ This repository aims to provide reliable solutions for any and all problems disc
 
 The following topics and subject areas that will be provided in this repository are the following:
 
-- Evolutionary Computation
+- [Evolutionary Computation](https://github.com/astonHC/CS3_CI/tree/main/EC)
 - Genetic Algorithms
 - Neural Networks
 - Particle Swarm Optimisation
