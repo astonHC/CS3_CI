@@ -58,12 +58,12 @@ static uint8_t ENABLED_FLAGS = OPT_ALL;
 static const char* EVO_TRACE_ERR[] = 
 {
     "OK",
-    "INITIALIZATION ERROR",
-    "FITNESS CALCULATION ERROR",
-    "SELECTION PROCESS ERROR",
-    "CROSSOVER OPERATION ERROR",
-    "MUTATION OPERATION ERROR",
-    "GENERATION PROCESS ERROR"
+    "INITIALIZATION",
+    "FITNESS CALCULATION",
+    "SELECTION PROCESS",
+    "CROSSOVER OPERATION",
+    "MUTATION OPERATION",
+    "GENERATION PROCESS"
 };
 
 /////////////////////////////////////////////////////
@@ -112,6 +112,5 @@ void DISABLE_TRACE_FLAGS(uint8_t FLAGS)
     printf("  VERBOSE TRACE:     %s\n", IS_TRACE_ENABLED(OPT_VERB) ? "ENABLED" : "DISABLED");   \
     printf("  DEBUG TRACE:       %s\n", IS_TRACE_ENABLED(OPT_DEBUG) ? "ENABLED" : "DISABLED");  \
     printf("  PERFORMANCE TRACE: %s\n", IS_TRACE_ENABLED(OPT_PERF) ? "ENABLED" : "DISABLED");   \
-    printf("\n")
 
 #endif
