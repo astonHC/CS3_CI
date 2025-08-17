@@ -8,7 +8,7 @@
 // NESTED INCLUDES
 
 #include "crossover.h"
-#include "../util.h"
+#include "../EC_UTIL.h"
 
 // CALCULATES THE COUNT MATCHING CHARACTERS AGAINST THE TARGET STRING
 // THIS IS IN RELATION TO THE WELLNESS OF THE PERSON IN QUESTION
@@ -185,7 +185,7 @@ void GEN_OFFSPRING(PERSON* CURRENT, PERSON* NEW_POP, int START, int END)
 {
     for (int INDEX = START; INDEX < END; INDEX += 2) 
     {
-        if (rand() % EC_MAX_GEN < EC_CRS_RATE) 
+        if (rand() % 100 < EC_CRS_RATE) 
         {
             int PARENT_ONE = SELECTION(CURRENT);
             int PARENT_TWO = SELECTION(CURRENT);
@@ -205,6 +205,12 @@ void GEN_OFFSPRING(PERSON* CURRENT, PERSON* NEW_POP, int START, int END)
             MUTATE(CHILD_TWO);
             
             // COPY NEW MUTATIONS TO THE POPULATION
+            // LEVERAGING STRCPY ESPECIALLY HELPS WITH BEING ABLE
+            // TO INADVERTENTLY SPEED UP CONVERGENCE SPEEDS 
+
+            // AS IT WILL ALWAYS PRESUPPOSE THAT THE PREVIOUS GENERIC MATERIAL
+            // WILL BE PERFECTLY COPIED TO THE NEW
+
             strcpy(NEW_POP[INDEX].CHROMOSOMES, CHILD_ONE);
             NEW_POP[INDEX].WELLBEING = FITNESS_CALC(CHILD_ONE);
             
@@ -216,7 +222,8 @@ void GEN_OFFSPRING(PERSON* CURRENT, PERSON* NEW_POP, int START, int END)
                 strcpy(NEW_POP[INDEX + 1].CHROMOSOMES, CHILD_TWO);
                 NEW_POP[INDEX + 1].WELLBEING = FITNESS_CALC(CHILD_TWO);
             }
-        } 
+        }
+
         else 
         {
             // NO CROSSOVER? COPY SINGLE PARENT WITH MUTATION
@@ -246,4 +253,3 @@ void COPY_POP(PERSON* SRC, PERSON* DEST, int SIZE)
         DEST[INDEX] = SRC[INDEX];
     }
 }
-
