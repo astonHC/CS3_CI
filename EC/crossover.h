@@ -21,6 +21,16 @@
 #define     EC_SELECT           5
 #define     EC_PFRM             10
 
+#define EC_STATUS() \
+    printf("TARGET STRING: %s\n", EC_STRING);           \
+    printf("POPULATION SIZE: %d\n", EC_POP_SIZE);       \
+    printf("MAXIMUM GENERATIONS: %d\n", EC_MAX_GEN);    \
+    printf("MUTATION RATE: %d%%\n", EC_MUT_RATE);       \
+    printf("CROSSOVER RATE: %d%%\n", EC_CRS_RATE);      \
+    printf("TOURNAMENT SIZE: %d\n", EC_SELECT);         \
+    printf("ELITE PRESERVATION: %d\n\n", EC_PFRM);      \
+    printf("\n")                                        \
+
 // CROSSOVER METHODS
 // DETERMINES THE WAY IN WHICH CROSSOVER WILL BE HANDLED
 // OVER THE DURATION OF THE ALGORITHM
@@ -52,3 +62,5 @@ void MUTATE(char*);
 
 int SELECTION(PERSON* P);
 int COMPARE_PERSON(const void* PERSON_A, const void* PERSON_B);
+
+void INITIALIZE_POPULATION(PERSON* POPULATION);
