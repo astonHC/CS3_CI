@@ -3,6 +3,9 @@
 
 // THIS FILE PERTAINS MOSTLY TOWARDS COMMON UTILITY TO HELP WITH DEBUGGING AND PRINTING
 
+#ifndef UTIL_H
+#define UTIL_H
+
 // SYSTEM INCLUDES
 
 #include <stdbool.h>
@@ -110,3 +113,5 @@ void DISABLE_TRACE_FLAGS(uint8_t FLAGS)
     printf("  DEBUG TRACE:       %s\n", IS_TRACE_ENABLED(OPT_DEBUG) ? "ENABLED" : "DISABLED");  \
     printf("  PERFORMANCE TRACE: %s\n", IS_TRACE_ENABLED(OPT_PERF) ? "ENABLED" : "DISABLED");   \
     printf("\n")
+
+#endif
