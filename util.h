@@ -17,10 +17,10 @@
 #define     OPT_OFF             0
 #define     OPT_ON              1
 
+#define     OPT_ALL             (OPT_BASIC | OPT_VERB)
+
 #define     OPT_BASIC           (1 << 0)
 #define     OPT_VERB            (1 << 1)
-
-#define     OPT_ALL             (OPT_BASIC | OPT_VERB)
 
 typedef enum
 {
@@ -68,7 +68,7 @@ static const char* EVO_TRACE_ERR[] =
 //            TRACE CONTROL FUNCTIONS
 /////////////////////////////////////////////////////
 
-#define         VERBOSE_TRACE_HOOK              OPT_ON
+#define         VERBOSE_TRACE_HOOK              OPT_OFF
 #define         ERROR_TRACE_HOOK                OPT_ON
 
 static inline bool IS_TRACE_ENABLED(uint8_t FLAG) 
@@ -110,7 +110,7 @@ static inline void DISABLE_TRACE_FLAGS(uint8_t FLAGS)
     printf("TRACE CONFIG:\n"); \
     printf("  GLOBAL TRACE:      %s\n", TRACE_ENABLED ? "ENABLED" : "DISABLED");                \
     printf("  BASIC TRACE:       %s\n", IS_TRACE_ENABLED(OPT_BASIC) ? "ENABLED" : "DISABLED");  \
-    printf("  VERBOSE TRACE:     %s\n", IS_TRACE_ENABLED(OPT_VERB) ? "ENABLED" : "DISABLED");   \
+    printf("  VERBOSE:           %s\n", (VERBOSE_TRACE_HOOK && IS_TRACE_ENABLED(OPT_VERB)) ? "ENABLED" : "DISABLED"); \
     printf("\n");
 
 #endif
