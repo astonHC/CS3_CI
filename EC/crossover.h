@@ -7,6 +7,7 @@
 
 // SYSTEM INCLUDES
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -59,6 +60,9 @@ void CROSS_UNI(char*, char*, char*, char*);
 
 void CROSS_ALL(char*, char*, char*, char*, TYPE CROSS_TYPE);
 void MUTATE(char*);
+
+bool RANDOM_MUTATE(int);
+bool USE_GUIDED_MUT(int);
 
 int SELECTION(PERSON* P);
 int COMPARE_PERSON(const void* PERSON_A, const void* PERSON_B);
