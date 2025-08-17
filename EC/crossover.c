@@ -85,3 +85,27 @@ int CROSS_DOUBLE(char* PARENT_A, char* PARENT_B, char* CHILD_A, char* CHILD_B)
 
     return SECOND_POINT - FIRST_POINT;
 }
+
+// RANDOMLY CHOOSE EACH GENE FROM EITHER PARENT
+// THIS PROVIDES MAXIMUM GENETIC RECOMBINATION
+
+void CROSS_UNI(char* PARENT_A, char* PARENT_B, char* CHILD_A, char* CHILD_B)
+{
+    ERROR_TRACE(CROSS, TRACE_ERR_CROSSOVER, "UNIFORM CROSSOVER");
+    for(int INDEX = 0; INDEX < EC_STRLEN; INDEX++)
+    {
+        if(rand() % 2 == 0)
+        {
+            CHILD_A[INDEX] = PARENT_A[INDEX];
+            CHILD_B[INDEX] = PARENT_B[INDEX];
+        }
+        else
+        {
+            CHILD_A[INDEX] = PARENT_B[INDEX];
+            CHILD_B[INDEX] = PARENT_A[INDEX];
+        }
+    }
+    CHILD_A[EC_STRLEN] = '\0';
+    CHILD_B[EC_STRLEN] = '\0';
+}
+
