@@ -5,6 +5,7 @@
 
 // SYSTEM INCLUDES
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -13,33 +14,36 @@
 #define     OPT_OFF             0
 #define     OPT_ON              1
 
-#define     OPT_BASIC            (1 << 0)
-#define     OPT_VERB             (1 << 1)
+#define     OPT_BASIC           (1 << 0)
+#define     OPT_VERB            (1 << 1)
+#define     OPT_DEBUG           (1 << 2)
+#define     OPT_PERF            (1 << 3)
 
-#define     OPT_ALL              (OPT_BASIC | OPT_VERB)
+#define     OPT_ALL             (OPT_BASIC | OPT_VERB | OPT_DEBUG | OPT_PERF)
 
 typedef enum
 {
-    READ = 'R',
-    WRITE = 'W',
-    INVALID_READ = '!',
-    INVALID_WRITE = '?',
-    MAP = 'M',
-    UNMAP = 'U'
+    EVO = 'E',
+    SELECT = 'S',
+    CROSS = 'C',
+    MUTATE = 'M',
+    FITNESS = 'F',
+    INIT = 'I',
+    ERROR = '!'
 
-} PRINT_OP;
+} TRACE_OP;
 
-typedef enum
+typedef enum 
 {   
-    PRINT_OK,
-    PRINT_ERR_UNMAPPED,
-    PRINT_ERR_SIZE,
-    PRINT_ERR_RESERVED,
-    PRINT_ERR_OVERFLOW,
-    PRINT_ERR_BAD_READ,
-    PRINT_ERR_BAD_WRITE
+    TRACE_OK,                   
+    TRACE_ERR_INIT,             
+    TRACE_ERR_FITNESS,           
+    TRACE_ERR_SELECTION,         
+    TRACE_ERR_CROSSOVER,        
+    TRACE_ERR_MUTATION,          
+    TRACE_ERR_GENERATION
 
-} PRINT_ERROR;
+} TRACE_ERROR;
 
 /////////////////////////////////////////////////////
 //              GLOBAL DEFINITIONS
@@ -48,15 +52,37 @@ typedef enum
 static bool TRACE_ENABLED = true;
 static uint8_t ENABLED_FLAGS = OPT_ALL;
 
+static const char* EVO_TRACE_ERR[] = 
+{
+    "OK",
+    "INITIALIZATION ERROR",
+    "FITNESS CALCULATION ERROR",
+    "SELECTION PROCESS ERROR",
+    "CROSSOVER OPERATION ERROR",
+    "MUTATION OPERATION ERROR",
+    "GENERATION PROCESS ERROR"
+};
+
 /////////////////////////////////////////////////////
 //            TRACE CONTROL FUNCTIONS
 /////////////////////////////////////////////////////
 
 #define         VERBOSE_TRACE_HOOK              OPT_ON
+#define         ERROR_TRACE_HOOK                OPT_ON
 
-bool IS_TRACE_ENABLED(uint8_t FLAG)
+bool IS_TRACE_ENABLED(uint8_t FLAG) 
 {
-    return (ENABLED_FLAGS & FLAG) == FLAG;
+    return TRACE_ENABLED && (ENABLED_FLAGS & FLAG);
+}
+
+void ENABLE_TRACE_FLAGS(uint8_t FLAGS) 
+{
+    ENABLED_FLAGS |= FLAGS;
+}
+
+void DISABLE_TRACE_FLAGS(uint8_t FLAGS) 
+{
+    ENABLED_FLAGS &= ~FLAGS;
 }
 
 #define VERBOSE_TRACE(MSG, ...) \
@@ -65,8 +91,22 @@ bool IS_TRACE_ENABLED(uint8_t FLAG)
             printf("[VERBOSE] " MSG "\n", ##__VA_ARGS__); \
     } while(0)
 
+#if ERROR_TRACE_HOOK    
+    #define ERROR_TRACE(OP, ERR, MSG, ...)                                  \
+        do {                                                                \
+            if(IS_TRACE_ENABLED(OPT_BASIC))                                 \
+                printf("[TRACE] %c MSG" "\n",                               \
+                (char)(OP), EVO_TRACE_ERR[(ERR)], ##__VA_ARGS__);           \
+        } while(0)
+#else
+        #define ERROR_TRACE(OP, ERR, MSG, ...) ((void)0)
+#endif
+
 #define SHOW_TRACE_STATUS() \
     printf("\nTRACE CONFIG:\n"); \
-    printf("  BASIC:            %s\n", IS_TRACE_ENABLED(OPT_BASIC) ? "ENABLED" : "DISABLED"); \
-    printf("  VERBOSE:          %s\n", (VERBOSE_TRACE_HOOK == OPT_ON && IS_TRACE_ENABLED(OPT_VERB)) ? "ENABLED" : "DISABLED"); \
+    printf("  GLOBAL TRACE:      %s\n", TRACE_ENABLED ? "ENABLED" : "DISABLED");                \
+    printf("  BASIC TRACE:       %s\n", IS_TRACE_ENABLED(OPT_BASIC) ? "ENABLED" : "DISABLED");  \
+    printf("  VERBOSE TRACE:     %s\n", IS_TRACE_ENABLED(OPT_VERB) ? "ENABLED" : "DISABLED");   \
+    printf("  DEBUG TRACE:       %s\n", IS_TRACE_ENABLED(OPT_DEBUG) ? "ENABLED" : "DISABLED");  \
+    printf("  PERFORMANCE TRACE: %s\n", IS_TRACE_ENABLED(OPT_PERF) ? "ENABLED" : "DISABLED");   \
     printf("\n")
