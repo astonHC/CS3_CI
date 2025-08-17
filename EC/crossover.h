@@ -28,9 +28,8 @@
 typedef enum TYPE
 {
     SINGLE,
-    TWO,
+    DOUBLE,
     UNIFORM,
-    ARITH
 
 } TYPE;
 
@@ -44,4 +43,12 @@ typedef struct PERSON
 } PERSON;
 
 int FITNESS_CALC(char*);
-int CROSSOVER_SINGLE(char*, char*, char*, char*);
+int CROSS_SINGLE(char*, char*, char*, char*);
+int CROSS_DOUBLE(char*, char*, char*, char*);
+void CROSS_UNI(char*, char*, char*, char*);
+
+void CROSS_ALL(char*, char*, char*, char*, TYPE CROSS_TYPE);
+void MUTATE(char*);
+
+int SELECTION(PERSON* P);
+int COMPARE_PERSON(const void* PERSON_A, const void* PERSON_B);
