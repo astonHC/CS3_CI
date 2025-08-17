@@ -8,7 +8,7 @@
 // NESTED INCLUDES
 
 #include "crossover.h"
-#include "../util.h"
+#include "../EC_UTIL.h"
 
 int main(void)
 {
@@ -20,6 +20,7 @@ int main(void)
 
     printf("HARRY CLARK - EVOLUTIONARY COMPUTATION\n");
     
+    SHOW_TRACE_STATUS();
     EC_STATUS();
     POPULATION_INIT(CURRENT_POPULATION);
 
