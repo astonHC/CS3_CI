@@ -30,7 +30,7 @@
 #define EC_STATUS() \
     printf("EVO CONFIG:\n"); \
     printf("    TARGET STRING: %s\n", EC_STRING);                   \
-    printf("    CURRENT CROSSOVER TYPE: %s\n", CROSSOVER_TYPE_STRINGS[CURRENT_CROSSOVER_METHOD]); \
+    printf("    CURRENT CROSSOVER TYPE: %s\n", CROSSOVER_TYPE[CURRENT_CROSSOVER_METHOD]); \
     printf("    POPULATION SIZE: %d\n", EC_POP_SIZE);               \
     printf("    MAXIMUM GENERATIONS: %d\n", EC_MAX_GEN);            \
     printf("    MUTATION RATE: %d%%\n", EC_MUT_RATE);               \
@@ -84,7 +84,7 @@ void GEN_OFFSPRING(PERSON* CURRENT, PERSON* NEW_POP, int START, int END);
 void COPY_POP(PERSON* SRC, PERSON* DEST, int SIZE);
 
 static TYPE CURRENT_CROSSOVER_METHOD;
-static const char* CROSSOVER_TYPE_STRINGS[] = 
+static const char* CROSSOVER_TYPE[] = 
 {
     "SINGLE",
     "DOUBLE",
