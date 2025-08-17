@@ -73,17 +73,17 @@ static const char* EVO_TRACE_ERR[] =
 #define         VERBOSE_TRACE_HOOK              OPT_ON
 #define         ERROR_TRACE_HOOK                OPT_ON
 
-bool IS_TRACE_ENABLED(uint8_t FLAG) 
+static inline bool IS_TRACE_ENABLED(uint8_t FLAG) 
 {
     return TRACE_ENABLED && (ENABLED_FLAGS & FLAG);
 }
 
-void ENABLE_TRACE_FLAGS(uint8_t FLAGS) 
+static inline void ENABLE_TRACE_FLAGS(uint8_t FLAGS) 
 {
     ENABLED_FLAGS |= FLAGS;
 }
 
-void DISABLE_TRACE_FLAGS(uint8_t FLAGS) 
+static inline void DISABLE_TRACE_FLAGS(uint8_t FLAGS) 
 {
     ENABLED_FLAGS &= ~FLAGS;
 }
