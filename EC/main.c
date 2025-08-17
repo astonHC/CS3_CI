@@ -21,8 +21,51 @@ int main(void)
     printf("HARRY CLARK - EVOLUTIONARY COMPUTATION\n");
     
     EC_STATUS();
-
     POPULATION_INIT(CURRENT_POPULATION);
 
+    for(int GEN = 0; GEN < EC_MAX_GEN; GEN++)
+    {
+        // CALCULATE FITNESS FOR ALL INDIVIDUALS IN CURRENT GENERATION
+        for(int PERSON = 0; PERSON < EC_POP_SIZE; PERSON++)
+        {
+            CURRENT_POPULATION[PERSON].WELLBEING = 
+                FITNESS_CALC(CURRENT_POPULATION[PERSON].CHROMOSOMES);
+        }
+
+        // SORT POPULATION BY FITNESS
+        qsort(CURRENT_POPULATION, EC_POP_SIZE, sizeof(PERSON), COMPARE_PERSON);
+
+        printf("GENERATION %1d: %s  (FITNESS: %1d/%d)    METHOD: ", 
+               GEN, 
+               CURRENT_POPULATION[0].CHROMOSOMES, 
+               CURRENT_POPULATION[0].WELLBEING, 
+               (int)EC_STRLEN);
+
+        switch(CURRENT_CROSSOVER_METHOD)
+        {
+            case SINGLE: printf("SINGLE_POINT\n"); break;
+            case DOUBLE: printf("DOUBLE_POINT\n"); break;
+            case UNIFORM: printf("UNIFORM\n"); break;
+        }
+
+        if(CURRENT_POPULATION[0].WELLBEING == EC_STRLEN)
+        {
+            ERROR_TRACE(EVO, TRACE_OK, "SOLUTION FOUND IN GENERATION %d", GENERATION_NUMBER);
+            printf("FINAL STRING: %s\n", CURRENT_POPULATION[0].CHROMOSOMES);
+            break;
+        }
+
+        PRESERVE_ELITE(CURRENT_POPULATION, NEW_POPULATION, EC_PFRM);
+        GEN_OFFSPRING(CURRENT_POPULATION, NEW_POPULATION, EC_PFRM, EC_POP_SIZE);
+        COPY_POP(NEW_POPULATION, CURRENT_POPULATION, EC_POP_SIZE);
+
+    }
+        
+    printf("BEST SOLUTION: %s\n", CURRENT_POPULATION[0].CHROMOSOMES);
+    printf("FINAL FITNESS: %d/%d (%.1f%%)\n", 
+           CURRENT_POPULATION[0].WELLBEING, 
+           (int)EC_STRLEN,
+           (float)CURRENT_POPULATION[0].WELLBEING / EC_STRLEN * EC_MAX_GEN);
+    
     return 0;
 }
