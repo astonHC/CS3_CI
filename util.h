@@ -1,74 +1,116 @@
 // COPYRIGHT (C) HARRY CLARK 2025
-// CS3_CI EVOLUTIONARY COMPUTATION 
+// COMMON UTILITY
 
-// THIS FILE PERTAINS TOWARDS AN EXAMPLE OF HOW UTILISING CROSSOVER
-// ALLOWS FOR THE GRADUAL MUTATION/REPRODUCTION OF AN ALGORITHM OVER THE COURSE
-// OF IT'S RUNTIME
+// THIS FILE PERTAINS MOSTLY TOWARDS COMMON UTILITY TO HELP WITH DEBUGGING AND PRINTING
+
+#ifndef UTIL_H
+#define UTIL_H
 
 // SYSTEM INCLUDES
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
-#define     EC_POP_SIZE         200
-#define     EC_STRING           "HARRY CLARK"
-#define     EC_STRLEN           strlen(EC_STRING)
-#define     EC_MAX_GEN          100
-#define     EC_MUT_RATE         15
-#define     EC_CRS_RATE         85
-#define     EC_SELECT           5
-#define     EC_PFRM             10
-#define     EC_GUIDE_PROB       30
-#define     EC_CS               46
+#define     OPT_OFF             0
+#define     OPT_ON              1
 
-#define EC_STATUS() \
-    printf("TARGET STRING: %s\n", EC_STRING);                   \
-    printf("POPULATION SIZE: %d\n", EC_POP_SIZE);               \
-    printf("MAXIMUM GENERATIONS: %d\n", EC_MAX_GEN);            \
-    printf("MUTATION RATE: %d%%\n", EC_MUT_RATE);               \
-    printf("CROSSOVER RATE: %d%%\n", EC_CRS_RATE);              \
-    printf("CHROMOSOMES: %d\n",     EC_CS);                     \
-    printf("TOURNAMENT SIZE: %d\n", EC_SELECT);                 \
-    printf("ELITE PRESERVATION: %d\n", EC_PFRM);                \
-    printf("GUIDED PROBABILITY RATE: %d\n\n", EC_GUIDE_PROB);   \
-    printf("\n")                                                \
+#define     OPT_BASIC           (1 << 0)
+#define     OPT_VERB            (1 << 1)
+#define     OPT_DEBUG           (1 << 2)
+#define     OPT_PERF            (1 << 3)
 
-// CROSSOVER METHODS
-// DETERMINES THE WAY IN WHICH CROSSOVER WILL BE HANDLED
-// OVER THE DURATION OF THE ALGORITHM
+#define     OPT_ALL             (OPT_BASIC | OPT_VERB | OPT_DEBUG | OPT_PERF)
 
-typedef enum TYPE
+typedef enum
 {
-    SINGLE,
-    DOUBLE,
-    UNIFORM,
+    EVO = 'E',
+    SELECT = 'S',
+    CROSS = 'C',
+    MUT = 'M',
+    FITNESS = 'F',
+    INIT = 'I',
+    ERROR = '!'
 
-} TYPE;
+} TRACE_OP;
 
-// REPRESENT AN INVIDUAL IN THE POPULATION
+typedef enum 
+{   
+    TRACE_OK,                   
+    TRACE_ERR_INIT,             
+    TRACE_ERR_FITNESS,           
+    TRACE_ERR_SELECTION,         
+    TRACE_ERR_CROSSOVER,        
+    TRACE_ERR_MUTATION,          
+    TRACE_ERR_GENERATION
 
-typedef struct PERSON
+} TRACE_ERROR;
+
+/////////////////////////////////////////////////////
+//              GLOBAL DEFINITIONS
+/////////////////////////////////////////////////////
+
+static bool TRACE_ENABLED = true;
+static uint8_t ENABLED_FLAGS = OPT_ALL;
+
+static const char* EVO_TRACE_ERR[] = 
 {
-    char CHROMOSOMES[46];
-    int WELLBEING;
+    "OK",
+    "INITIALIZATION",
+    "FITNESS CALCULATION",
+    "SELECTION PROCESS",
+    "CROSSOVER OPERATION",
+    "MUTATION OPERATION",
+    "GENERATION PROCESS"
+};
 
-} PERSON;
+/////////////////////////////////////////////////////
+//            TRACE CONTROL FUNCTIONS
+/////////////////////////////////////////////////////
 
-int FITNESS_CALC(char*);
-int CROSS_SINGLE(char*, char*, char*, char*);
-int CROSS_DOUBLE(char*, char*, char*, char*);
-void CROSS_UNI(char*, char*, char*, char*);
+#define         VERBOSE_TRACE_HOOK              OPT_ON
+#define         ERROR_TRACE_HOOK                OPT_OFF
 
-void CROSS_ALL(char*, char*, char*, char*, TYPE CROSS_TYPE);
-void MUTATE(char*);
+static inline bool IS_TRACE_ENABLED(uint8_t FLAG) 
+{
+    return TRACE_ENABLED && (ENABLED_FLAGS & FLAG);
+}
 
-bool RANDOM_MUTATE(int);
-bool USE_GUIDED_MUT(int);
+static inline void ENABLE_TRACE_FLAGS(uint8_t FLAGS) 
+{
+    ENABLED_FLAGS |= FLAGS;
+}
 
-int SELECTION(PERSON* P);
-int COMPARE_PERSON(const void* PERSON_A, const void* PERSON_B);
+static inline void DISABLE_TRACE_FLAGS(uint8_t FLAGS) 
+{
+    ENABLED_FLAGS &= ~FLAGS;
+}
 
-void POPULATION_INIT(PERSON* POPULATION);
+#define VERBOSE_TRACE(MSG, ...) \
+    do { \
+        if (VERBOSE_TRACE_HOOK == OPT_ON && IS_TRACE_ENABLED(OPT_VERB)) \
+            printf("[VERBOSE] " MSG "\n", ##__VA_ARGS__); \
+    } while(0)
+
+#if ERROR_TRACE_HOOK    
+    #define ERROR_TRACE(OP, ERR, MSG, ...) \
+        printf("[TRACE] %c -> %s - " MSG "\n", \
+              (char)(OP), \
+              (ERR) >= 0 ? \
+                  EVO_TRACE_ERR[(ERR)] : "UNKNOWN_ERROR", \
+              ##__VA_ARGS__)
+#else
+    #define ERROR_TRACE(OP, ERR, MSG, ...) ((void)0)
+#endif
+
+#define SHOW_TRACE_STATUS() \
+    printf("\nTRACE CONFIG:\n"); \
+    printf("  GLOBAL TRACE:      %s\n", TRACE_ENABLED ? "ENABLED" : "DISABLED");                \
+    printf("  BASIC TRACE:       %s\n", IS_TRACE_ENABLED(OPT_BASIC) ? "ENABLED" : "DISABLED");  \
+    printf("  VERBOSE TRACE:     %s\n", IS_TRACE_ENABLED(OPT_VERB) ? "ENABLED" : "DISABLED");   \
+    printf("  DEBUG TRACE:       %s\n", IS_TRACE_ENABLED(OPT_DEBUG) ? "ENABLED" : "DISABLED");  \
+    printf("  PERFORMANCE TRACE: %s\n", IS_TRACE_ENABLED(OPT_PERF) ? "ENABLED" : "DISABLED");   \
+
+#endif
