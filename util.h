@@ -71,7 +71,7 @@ static const char* EVO_TRACE_ERR[] =
 /////////////////////////////////////////////////////
 
 #define         VERBOSE_TRACE_HOOK              OPT_ON
-#define         ERROR_TRACE_HOOK                OPT_OFF
+#define         ERROR_TRACE_HOOK                OPT_ON
 
 static inline bool IS_TRACE_ENABLED(uint8_t FLAG) 
 {
@@ -98,8 +98,7 @@ static inline void DISABLE_TRACE_FLAGS(uint8_t FLAGS)
     #define ERROR_TRACE(OP, ERR, MSG, ...) \
         printf("[TRACE] %c -> %s - " MSG "\n", \
               (char)(OP), \
-              (ERR) >= 0 ? \
-                  EVO_TRACE_ERR[(ERR)] : "UNKNOWN_ERROR", \
+                  EVO_TRACE_ERR[(ERR)], \
               ##__VA_ARGS__)
 #else
     #define ERROR_TRACE(OP, ERR, MSG, ...) ((void)0)
