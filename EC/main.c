@@ -8,7 +8,7 @@
 // NESTED INCLUDES
 
 #include "crossover.h"
-#include "../EC_UTIL.h"
+#include "util.h"
 
 int main(void)
 {
