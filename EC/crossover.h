@@ -5,6 +5,9 @@
 // ALLOWS FOR THE GRADUAL MUTATION/REPRODUCTION OF AN ALGORITHM OVER THE COURSE
 // OF IT'S RUNTIME
 
+#ifndef EC_CROSSOVER_H
+#define EC_CROSSOVER_H
+
 // SYSTEM INCLUDES
 
 #include <stdbool.h>
@@ -26,6 +29,7 @@
 
 #define EC_STATUS() \
     printf("TARGET STRING: %s\n", EC_STRING);                   \
+    printf("CURRENT CROSSOVER TYPE: %s\n", CROSSOVER_TYPE_STRINGS[CURRENT_CROSSOVER_METHOD]); \
     printf("POPULATION SIZE: %d\n", EC_POP_SIZE);               \
     printf("MAXIMUM GENERATIONS: %d\n", EC_MAX_GEN);            \
     printf("MUTATION RATE: %d%%\n", EC_MUT_RATE);               \
@@ -72,3 +76,13 @@ int SELECTION(PERSON* P);
 int COMPARE_PERSON(const void* PERSON_A, const void* PERSON_B);
 
 void POPULATION_INIT(PERSON* POPULATION);
+
+static TYPE CURRENT_CROSSOVER_METHOD;
+static const char* CROSSOVER_TYPE_STRINGS[] = 
+{
+    "SINGLE",
+    "DOUBLE",
+    "UNIFORM"
+};
+
+#endif
