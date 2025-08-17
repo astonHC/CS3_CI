@@ -29,7 +29,7 @@ typedef enum
     EVO = 'E',
     SELECT = 'S',
     CROSS = 'C',
-    MUTATE = 'M',
+    MUT = 'M',
     FITNESS = 'F',
     INIT = 'I',
     ERROR = '!'
@@ -71,7 +71,7 @@ static const char* EVO_TRACE_ERR[] =
 /////////////////////////////////////////////////////
 
 #define         VERBOSE_TRACE_HOOK              OPT_ON
-#define         ERROR_TRACE_HOOK                OPT_ON
+#define         ERROR_TRACE_HOOK                OPT_OFF
 
 bool IS_TRACE_ENABLED(uint8_t FLAG) 
 {
@@ -95,14 +95,11 @@ void DISABLE_TRACE_FLAGS(uint8_t FLAGS)
     } while(0)
 
 #if ERROR_TRACE_HOOK    
-    #define ERROR_TRACE(OP, ERR, MSG, ...)                                  \
-        do {                                                                \
-            if(IS_TRACE_ENABLED(OPT_BASIC))                                 \
-                printf("[TRACE] %c MSG" "\n",                               \
-                (char)(OP), EVO_TRACE_ERR[(ERR)], ##__VA_ARGS__);           \
-        } while(0)
+    #define ERROR_TRACE(OP, ERR, MSG, ...) \
+        printf("[TRACE] %c %s - " MSG "\n", (char)(OP), \
+              (ERR == 0 ? "OK" : "ERR"), ##__VA_ARGS__)
 #else
-        #define ERROR_TRACE(OP, ERR, MSG, ...) ((void)0)
+    #define ERROR_TRACE(OP, ERR, MSG, ...) ((void)0)
 #endif
 
 #define SHOW_TRACE_STATUS() \
