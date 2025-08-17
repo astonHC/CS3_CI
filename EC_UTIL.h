@@ -108,9 +108,9 @@ static inline void DISABLE_TRACE_FLAGS(uint8_t FLAGS)
 
 #define SHOW_TRACE_STATUS() \
     printf("TRACE CONFIG:\n"); \
-    printf("  GLOBAL TRACE:      %s\n", TRACE_ENABLED ? "ENABLED" : "DISABLED");                \
-    printf("  BASIC TRACE:       %s\n", IS_TRACE_ENABLED(OPT_BASIC) ? "ENABLED" : "DISABLED");  \
-    printf("  VERBOSE:           %s\n", (VERBOSE_TRACE_HOOK && IS_TRACE_ENABLED(OPT_VERB)) ? "ENABLED" : "DISABLED"); \
+    printf("    GLOBAL TRACE:      %s\n", TRACE_ENABLED ? "ENABLED" : "DISABLED");                \
+    printf("    BASIC TRACE:       %s\n", IS_TRACE_ENABLED(OPT_BASIC) ? "ENABLED" : "DISABLED");  \
+    printf("    VERBOSE:           %s\n", (VERBOSE_TRACE_HOOK && IS_TRACE_ENABLED(OPT_VERB)) ? "ENABLED" : "DISABLED"); \
     printf("\n");
 
 #endif
