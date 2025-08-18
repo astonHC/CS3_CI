@@ -33,8 +33,7 @@ of all of the contents encompassing this repository
     #define ERROR_TRACE(OP, ERR, MSG, ...) \
         printf("[TRACE] %c -> %s - " MSG "\n", \
               (char)(OP), \
-              (ERR) >= 0 ? \
-                  EVO_TRACE_ERR[(ERR)] : "UNKNOWN_ERROR", \
+                  EVO_TRACE_ERR[(ERR)], \
               ##__VA_ARGS__)
 #else
     #define ERROR_TRACE(OP, ERR, MSG, ...) ((void)0)
