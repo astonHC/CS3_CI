@@ -17,12 +17,12 @@ void MUTATE(char* MATCH)
     int MUTATION_COUNT = 0;
     for(int CHARACTER_INDEX = 0; CHARACTER_INDEX < EC_STRLEN; CHARACTER_INDEX++)
     {
-        if(rand() % EC_MAX_GEN < EC_MUT_RATE)
+        if(rand() % 100 < EC_MUT_RATE)
         {
             MUTATION_COUNT++;
 
             // LEVERAGE GUIDED EVOLUTION FOR MORE PRECISE GENERATIONS
-            if(rand() % EC_MAX_GEN < EC_GUIDE_PROB)
+            if(rand() % 100 < EC_GUIDE_PROB)
             {
                 MATCH[CHARACTER_INDEX] = EC_STRING[CHARACTER_INDEX];
             }
