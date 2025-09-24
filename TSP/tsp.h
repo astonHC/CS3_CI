@@ -21,7 +21,6 @@
     #define USE_TSP
 
     #define     TSP_MAX_CITIES      5
-    #define     TSP_INF             INT_MAX
 
         // SIMPLE IMPLEMENTATION FOR BEING ABLE TO CATCH
         // AND STRINGIFY ERROR MESSAGES FOR ALLOCATING STRUCTS
@@ -31,12 +30,6 @@
                     printf("MEMORY ALLOCATION FAILED FOR %s, 0x%p\n", #VALUE, (void*)&(VALUE)); \
                     return 1; \
                 } \
-            } while(0)
-
-        #define TSP_ERROR(ERROR, MSG, ...) \
-            do { \
-                printf("[ERROR] -> %-18s " MSG "\n", \
-                TSP_ERR[ERROR], ##__VA_ARGS__); \
             } while(0)
 
     // DEFINE AN ENUM WHICH REPRESENTS THE VARIOUS ALGORITHM TYPES
@@ -103,12 +96,21 @@
 
     } TSP_ERROR;
 
-    typedef struct
+    typedef enum
     {
-        TSP_ERROR ERROR_CODE;
-        char MSG[256];
+        NONE = 'N',
+        OOB = 'O',
+        CITY = 'C',
+        DIST = 'D'
 
-    } TSP_ERROR_USAGE;
+    } TSP_ERROR_OP;
+
+    #define TSP_ERROR_HANDLE(OP, ERROR, MSG, ...) \
+                do { \
+                    printf("[ERROR] %c -> %-18s " MSG "\n", \
+                        (char)OP, TSP_ERR[ERROR], ##__VA_ARGS__); \
+                } while(0)
+
 
     /////////////////////////////////////////////////////
     //             TSP FUNCTION PROTOTYPES
