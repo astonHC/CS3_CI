@@ -12,6 +12,7 @@
 #include <limits.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #if defined(USE_TSP)
@@ -21,6 +22,17 @@
 
     #define     TSP_MAX_CITIES      5
     #define     TSP_INF             INT_MAX
+
+
+        // SIMPLE IMPLEMENTATION FOR BEING ABLE TO CATCH
+        // AND STRINGIFY ERROR MESSAGES FOR ALLOCATING STRUCTS
+        #define     TSP_ERROR(VALUE) \
+            do { \
+                if ((VALUE) == NULL) { \
+                    printf("MEMORY ALLOCATION FAILED FOR: %s, 0x%p\n", #VALUE, (void*)&(VALUE)); \
+                    return 1; \
+                } \
+            } while(0)
 
     // DEFINE AN ENUM WHICH REPRESENTS THE VARIOUS ALGORITHM TYPES
     // THAT CAN BE TESTED AGAINST
@@ -81,7 +93,7 @@
     //             TSP FUNCTION PROTOTYPES
     /////////////////////////////////////////////////////
 
-    void TSP_INIT(TSP_STATE*);
+    int TSP_INIT(TSP_STATE*);
     int TSP_ADD_CITY(TSP_STATE*, const char*, int, int);
     void TSP_CALC_DIST(TSP_STATE*);
     int TSP_BRUTE(TSP_STATE*);
