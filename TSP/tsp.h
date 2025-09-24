@@ -29,7 +29,7 @@
         #define     TSP_ERROR(VALUE) \
             do { \
                 if ((VALUE) == NULL) { \
-                    printf("MEMORY ALLOCATION FAILED FOR: %s, 0x%p\n", #VALUE, (void*)&(VALUE)); \
+                    printf("MEMORY ALLOCATION FAILED FOR %s, 0x%p\n", #VALUE, (void*)&(VALUE)); \
                     return 1; \
                 } \
             } while(0)
@@ -61,8 +61,8 @@
     // DISTANCE BETWEEN CITIES
     typedef struct
     {
-        int TSP_MATRIX[TSP_MAX_CITIES][TSP_MAX_CITIES];         // 2D ARRAY FOR MAX DIST BETWEEN
-        int TSP_DIST_SIZE;
+        int MATRIX[TSP_MAX_CITIES][TSP_MAX_CITIES];         // 2D ARRAY FOR MAX DIST BETWEEN
+        int SIZE;
             
     } TSP_DIST;
 
