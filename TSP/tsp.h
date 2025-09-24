@@ -23,7 +23,6 @@
     #define     TSP_MAX_CITIES      5
     #define     TSP_INF             INT_MAX
 
-
         // SIMPLE IMPLEMENTATION FOR BEING ABLE TO CATCH
         // AND STRINGIFY ERROR MESSAGES FOR ALLOCATING STRUCTS
         #define     TSP_ERROR(VALUE) \
@@ -88,6 +87,22 @@
 
     } TSP_STATE;
 
+    // ERROR HANDLING REPRESENTATION
+    typedef enum
+    {
+        TSP_ERROR_NONE = 0,
+        TSP_ERROR_OOB,
+        TSP_ERROR_CITY,
+        TSP_ERROR_DIST,
+
+    } TSP_ERROR;
+
+    typedef struct
+    {
+        TSP_ERROR ERROR_CODE;
+        char MSG[256];
+
+    } TSP_ERROR_USAGE;
 
     /////////////////////////////////////////////////////
     //             TSP FUNCTION PROTOTYPES
