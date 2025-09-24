@@ -25,12 +25,18 @@
 
         // SIMPLE IMPLEMENTATION FOR BEING ABLE TO CATCH
         // AND STRINGIFY ERROR MESSAGES FOR ALLOCATING STRUCTS
-        #define     TSP_ERROR(VALUE) \
+        #define     TSP_MEM_ERROR(VALUE) \
             do { \
                 if ((VALUE) == NULL) { \
                     printf("MEMORY ALLOCATION FAILED FOR %s, 0x%p\n", #VALUE, (void*)&(VALUE)); \
                     return 1; \
                 } \
+            } while(0)
+
+        #define TSP_ERROR(ERROR, MSG, ...) \
+            do { \
+                printf("[ERROR] -> %-18s " MSG "\n", \
+                TSP_ERR[ERROR], ##__VA_ARGS__); \
             } while(0)
 
     // DEFINE AN ENUM WHICH REPRESENTS THE VARIOUS ALGORITHM TYPES
