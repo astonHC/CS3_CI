@@ -14,7 +14,7 @@ static int TSP_BEST_PATH[TSP_MAX_CITIES + 1];
 static const char* TSP_ERR[] =
 {
     "OK",
-    "INDEX OUT OF BOUNDS"
+    "INDEX OUT OF BOUNDS",
     "MAX CITIES EXCEEDED",
     "INVALID DISTANCE"
 };
@@ -27,7 +27,7 @@ static const char* TSP_ERR[] =
 // DISTANCE BETWEEN CITIES
 int TSP_INIT(TSP_STATE* STATE)
 {
-    if(STATE == NULL) { TSP_ERROR(STATE); }
+    if(STATE == NULL) { TSP_MEM_ERROR(STATE); }
 
     STATE->CITY_COUNT = 0;
     STATE->DIST.SIZE = 0;
@@ -41,7 +41,9 @@ int TSP_INIT(TSP_STATE* STATE)
         for(int JINDEX = 0; JINDEX < TSP_MAX_CITIES; JINDEX++)
         {
             // HAVE WE REACHED THE MAX AMOUNT OF ITERATIONS?
-            if(STATE->DIST.MATRIX == TSP_INF)
+            // THIS WAY, WE CAN DO A SAFER CHECK
+            if(INDEX >= TSP_MAX_CITIES || JINDEX >= TSP_MAX_CITIES ||
+                INDEX < 0 || JINDEX < 0)
             {
                 goto TSP_OOB;
             }
@@ -51,16 +53,18 @@ int TSP_INIT(TSP_STATE* STATE)
         }
     }
 
-    TSP_OOB:
-        printf("TSP HAS REACHED MAX CITIES LIMIT: %d, EXPECTED: %d\n");
-        return 1;
-
     return 0;
+
+    TSP_OOB:
+        TSP_ERROR_HANDLE(OOB, TSP_ERROR_OOB, "EXPECTED VALUE: %d", TSP_MAX_CITIES);
+        return 1;
 }
 
 int main(void)
 {
     TSP_STATE STATE;
+
+    TSP_INIT(&STATE);
 
     printf("HARRY CLARK - CS3_CI TSP SOLUTION\n");
     return 0;
