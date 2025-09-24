@@ -87,8 +87,5 @@
     int TSP_BRUTE(TSP_STATE*);
     void TSP_RESULT(const TSP_STATE*);
 
-    inline int TSP_BEST_DIST;
-    inline int TSP_BEST_PATH[TSP_MAX_CITIES + 1];
-
 #endif
 #endif
