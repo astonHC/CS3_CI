@@ -6,7 +6,10 @@
 
 // NESTED INCLUDES 
 
-#include <tsp.h>
+#include "tsp.h"
+
+static int TSP_BEST_DIST;
+static int TSP_BEST_PATH[TSP_MAX_CITIES + 1];
 
 int main(void)
 {
