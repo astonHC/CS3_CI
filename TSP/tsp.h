@@ -37,7 +37,7 @@
     typedef enum
     {
         TSP_BRUTE_FORCE,
-        TSP_NEAREST,
+        TSP_NN,
         TSP_HELD_KARP
 
     } TSP_ALGO;
@@ -83,7 +83,6 @@
         TSP_DIST DIST;
         TSP_TOUR TOUR;
         int CITY_COUNT;
-
         TSP_ALGO ALGO;
 
     } TSP_STATE;
@@ -115,7 +114,7 @@
 
     #define TSP_ALGO_TYPE(VALUE) \
             ((VALUE) == TSP_BRUTE_FORCE ? "BRUTE FORCE" : \
-            (VALUE) == TSP_NEAREST ? "NEAREST NEIGHBOUR" : \
+            (VALUE) == TSP_NN ? "NEAREST NEIGHBOUR" : \
             (VALUE) == TSP_HELD_KARP ? "HELD KARP" : \
             "UNKNOWN")
 
@@ -131,9 +130,15 @@
 
     int TSP_INIT(TSP_STATE*);
     int TSP_ADD_CITY(TSP_STATE*, const char*, int, int);
+    int TSP_EUC_DIST(const TSP_CITY*, const TSP_CITY*);
     void TSP_CALC_DIST(TSP_STATE*);
+    int TSP_NEAREST(TSP_STATE*);
     int TSP_BRUTE(TSP_STATE*);
     void TSP_RESULT(const TSP_STATE*);
+
+    extern int TSP_BEST_DIST;
+    extern int TSP_BEST_PATH[TSP_MAX_CITIES + 1];
+    extern const char* TSP_ERR[];
 
 #endif
 #endif
