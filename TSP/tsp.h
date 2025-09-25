@@ -84,6 +84,8 @@
         TSP_TOUR TOUR;
         int CITY_COUNT;
 
+        TSP_ALGO ALGO;
+
     } TSP_STATE;
 
     // ERROR HANDLING REPRESENTATION
@@ -110,6 +112,12 @@
                     printf("[ERROR] %c -> %-18s " MSG "\n", \
                         (char)OP, TSP_ERR[ERROR], ##__VA_ARGS__); \
                 } while(0)
+
+    #define TSP_ALGO_TYPE(VALUE) \
+            ((VALUE) == TSP_BRUTE_FORCE ? "BRUTE FORCE" : \
+            (VALUE) == TSP_NEAREST ? "NEAREST NEIGHBOUR" : \
+            (VALUE) == TSP_HELD_KARP ? "HELD KARP" : \
+            "UNKNOWN")
 
 
     /////////////////////////////////////////////////////
