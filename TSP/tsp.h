@@ -120,7 +120,7 @@
 
     #define TSP_CITY_NAME(NAME, INDEX, X, Y) \
                 do { \
-                    printf("[CITY] -> %s | INDEX: %d | X: %d  Y: %d\n", NAME, INDEX, X, Y); \
+                    printf("[CITY] -> %12s | INDEX: %d | X: %d  Y: %d\n", NAME, INDEX, X, Y); \
                 } while(0)
 
 
