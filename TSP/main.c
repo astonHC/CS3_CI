@@ -76,6 +76,9 @@ int TSP_ADD_CITY(TSP_STATE* STATE, const char* NAME, int X, int Y)
     NEW_CITY->X = X;
     NEW_CITY->Y = Y;
 
+    // NOW PRINT OUT THE CORRESPONDENCE FOR THE NEW CITY
+    TSP_CITY_NAME(NAME, STATE->CITY_COUNT, X, Y);
+
     STATE->CITY_COUNT++;
     return 0;
 
@@ -93,6 +96,8 @@ int main(void)
     {
         fprintf(stderr, "FAILED TO INITIALISE TSP PROBLEM USING ALGORITHM: %s\n", TSP_ALGO_TYPE(STATE.ALGO));
     }
+
+    TSP_ADD_CITY(&STATE, "HARRY", 10, 5);
 
     printf("HARRY CLARK - CS3_CI TSP SOLUTION\n");
     return 0;
