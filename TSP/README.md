@@ -23,6 +23,6 @@ Using Matrix Addition, we are able to create a pseudo-implementation to determin
 
 It is just a simple case of running the following within this folder 
 ```
-gcc --std=c99 -pedantic main.c -o tsp
+gcc --std=c99 -pedantic main.c tsp.c -o tsp
 
 ./tsp
