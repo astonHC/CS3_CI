@@ -119,6 +119,11 @@
             (VALUE) == TSP_HELD_KARP ? "HELD KARP" : \
             "UNKNOWN")
 
+    #define TSP_CITY_NAME(NAME, INDEX, X, Y) \
+                do { \
+                    printf("[CITY] -> %s | INDEX: %d | X: %d  Y: %d\n", NAME, INDEX, X, Y); \
+                } while(0)
+
 
     /////////////////////////////////////////////////////
     //             TSP FUNCTION PROTOTYPES
