@@ -20,7 +20,7 @@ Using Matrix Addition, we are able to create a pseudo-implementation to determin
   - SUBSEQUENT DISTANCE
 
 ```c
-int TSP_ADD_CITY(TSP_STATE* STATE, const char* NAME, int X, int Y)
+int TSP_ADD_CITY(TSP_STATE* STATE, const char* NAME, int X, int Y);
 
 // CITIES CAN BE DEFINED STATICALLY AS SHOWN
 TSP_ADD_CITY(&STATE, "LONDON", 0, 0);
