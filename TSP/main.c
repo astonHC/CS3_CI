@@ -22,9 +22,11 @@ int main(void)
     TSP_ADD_CITY(&STATE, "PARIS", 344, 0);
 
     TSP_CALC_DIST(&STATE);
+    TSP_NEAREST(&STATE);
 
     printf("ALGORITHM: %s\n", TSP_ALGO_TYPE(STATE.ALGO));
     printf("DISTANCE COVERED: %d\n", STATE.TOUR.TSP_TOTAL_DIST);
 
     return 0;
 }
+
