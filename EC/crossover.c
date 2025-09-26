@@ -94,7 +94,7 @@ int CROSS_DOUBLE(char* PARENT_A, char* PARENT_B, char* CHILD_A, char* CHILD_B)
 
 void CROSS_UNI(char* PARENT_A, char* PARENT_B, char* CHILD_A, char* CHILD_B)
 {
-    ERROR_TRACE(CROSS, TRACE_ERR_CROSSOVER, "UNIFORM CROSSOVER");
+    ERROR_TRACE(CROSS, TRACE_ERR_CROSSOVER, "UNIFORM CROSSOVER", "");
     for(int INDEX = 0; INDEX < EC_STRLEN; INDEX++)
     {
         if(rand() % 2 == 0)
@@ -256,3 +256,4 @@ void COPY_POP(PERSON* SRC, PERSON* DEST, int SIZE)
         DEST[INDEX] = SRC[INDEX];
     }
 }
+
