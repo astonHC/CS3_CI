@@ -87,8 +87,8 @@ int TSP_ADD_CITY(TSP_STATE* STATE, const char* NAME, int X, int Y)
 
     TSP_CITY_MAX:
         TSP_ERROR_HANDLE(CITY, TSP_ERROR_CITY, 
-            "CURRENT CITY COUNT: %d - CANNOT INDEX CITY %s",
-            STATE->CITY_COUNT, NAME);
+            "MAX CITY COUNT: %d - CANNOT INDEX CITY: %s",
+            TSP_MAX_CITIES, NAME);
 }
 
 // CALCULATES THE EUCLIDEAN DISTANCE BETWEEN EACH CITY
@@ -123,6 +123,7 @@ void TSP_CALC_DIST(TSP_STATE* STATE)
             // IF ANY TWO CITIES ARE NOT THE SAME
             if(INDEX != ITERATOR)
             {
+                // CHECK THE DISTANCE BETWEEN SUCH
                 STATE->DIST.MATRIX[INDEX][ITERATOR] = TSP_EUC_DIST(&STATE->CITY[INDEX], &STATE->CITY[ITERATOR]);
             }
             else
