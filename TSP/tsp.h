@@ -21,7 +21,7 @@
 #else
     #define USE_TSP
 
-    #define     TSP_MAX_CITIES      2           // MAX AMOUNT WE HAVE AT A GIVEN TIME
+    #define     TSP_MAX_CITIES      5           // MAX AMOUNT WE HAVE AT A GIVEN TIME
     #define     TSP_START           0           // DEFACTO START POINT FOR CITY INDEXXED AT 0
 
     #define     TSP_SEED()                      srand((unsigned int)time(NULL))     // RANDOM SEED WITH TYPE CAST
@@ -110,7 +110,8 @@
         NONE = 'N',
         OOB = 'O',
         CITY = 'C',
-        DIST = 'D'
+        DIST = 'D',
+        PATH = 'P'
 
     } TSP_ERROR_OP;
 
@@ -131,6 +132,15 @@
                     printf("[CITY] -> %12s | INDEX: %d | X: %d  Y: %d\n", NAME, INDEX, X, Y); \
                 } while(0)
 
+
+    // SIMPLE MACROS FOR HANDLING THE DISTANCE BETWEEN CITIES
+    // PROVIDES MORE OF A VERBOSE EXPLAINATION FOR THE HANDLINGS
+    // OF THE DISTANCES BETWEEN CITIES (HELPS ESP. FOR RANDOM)
+    #define TSP_DEBUG_DIST(OP, ERROR, FROM, TO, DIST, MSG, ...)                                    \
+            do {                                                                            \
+                printf("[DEBUG] %c -> %-18s -> FROM: %d, TO: %d, DIST: %d", MSG "\n",       \
+                    (char)OP, TSP_ERR[ERROR], FROM, TO, DIST, ##__VA_ARGS__);               \
+            } while(0)
 
     /////////////////////////////////////////////////////
     //             TSP FUNCTION PROTOTYPES
