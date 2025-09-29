@@ -42,6 +42,28 @@ int TSP_EUC_DIST(const TSP_CITY* CITY_A, const TSP_CITY* CITY_B)
 }
 ```
 
+## Features:
+
+Keep track of the Euclidean Distance between Cities and their respective parameters by leveraging the ``TSP_DEBUG_DIST`` macro.
+
+This aims to provide a compile-time solution to accessing the proper indexxing between cities and the journey taken between indexes - providing a greater "under the hood" look at what is going on.
+
+```c
+#define TSP_DEBUG_DIST(OP, ERROR, FROM, TO, DIST, MSG, ...)                                     \
+        do {                                                                                        \
+            printf("[DEBUG] %c -> %s ->     FROM: %d,   TO: %d,     DIST: %1d" MSG "\n",            \
+                (char)OP, TSP_ERR[ERROR], FROM, TO, DIST, ##__VA_ARGS__);                           \
+        } while(0)
+
+// USAGE: - TSP_CALC_DIST
+// CAST THE DISTANCE TO A VARIABLE TO GAIN BETTER DEBUG RESULTS
+int DISTANCE = TSP_EUC_DIST(&STATE->CITY[INDEX], &STATE->CITY[ITERATOR]);
+STATE->DIST.MATRIX[INDEX][ITERATOR] = DISTANCE;
+
+TSP_DEBUG_DIST(DIST, TSP_ERROR_NONE, INDEX, ITERATOR, DISTANCE, 
+  " - %s %s", STATE->CITY[INDEX].NAME, STATE->CITY[ITERATOR].NAME);
+```
+
 ## Building:
 
 It is just a simple case of running the following within this folder 
