@@ -24,7 +24,11 @@
     #define     TSP_MAX_CITIES      5           // MAX AMOUNT WE HAVE AT A GIVEN TIME
     #define     TSP_START           0           // DEFACTO START POINT FOR CITY INDEXXED AT 0
 
-    #define     TSP_SEED()          srand((unsigned int)time(NULL))     // RANDOM SEED WITH TYPE CAST
+    #define     TSP_SEED()                      srand((unsigned int)time(NULL))     // RANDOM SEED WITH TYPE CAST
+    #define     TSP_RAND_CITY(VALUE)            (rand() % (VALUE))                  // RANDOM CITY AGAINST A VALUE (MAX_CITIES)
+
+    #define     TSP_VALID_DIST(VALUE)           ((VALUE) >= 0 && (VALUE) < INT_MAX)
+    #define     TSP_VALID_CITY(VALUE, MAX)      ((VALUE) >= 0 && (VALUE) < (MAX))
 
         // SIMPLE IMPLEMENTATION FOR BEING ABLE TO CATCH
         // AND STRINGIFY ERROR MESSAGES FOR ALLOCATING STRUCTS
