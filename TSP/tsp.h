@@ -136,10 +136,10 @@
     // SIMPLE MACROS FOR HANDLING THE DISTANCE BETWEEN CITIES
     // PROVIDES MORE OF A VERBOSE EXPLAINATION FOR THE HANDLINGS
     // OF THE DISTANCES BETWEEN CITIES (HELPS ESP. FOR RANDOM)
-    #define TSP_DEBUG_DIST(OP, ERROR, FROM, TO, DIST, MSG, ...)                         \
-        do {                                                                            \
-            printf("[DEBUG] %c -> %s -> FROM: %d, TO: %d, DIST: %d" MSG "\n",           \
-                (char)OP, TSP_ERR[ERROR], FROM, TO, DIST, ##__VA_ARGS__);               \
+    #define TSP_DEBUG_DIST(OP, ERROR, FROM, TO, DIST, MSG, ...)                                     \
+        do {                                                                                        \
+            printf("[DEBUG] %c -> %s ->     FROM: %d,   TO: %d,     DIST: %1d" MSG "\n",            \
+                (char)OP, TSP_ERR[ERROR], FROM, TO, DIST, ##__VA_ARGS__);                           \
         } while(0)
 
     /////////////////////////////////////////////////////
@@ -153,6 +153,8 @@
     int TSP_NEAREST(TSP_STATE*);
     int TSP_BRUTE(TSP_STATE*);
     void TSP_RESULT(const TSP_STATE*);
+
+    int TSP_RAND(TSP_STATE*);
 
     extern int TSP_BEST_DIST;
     extern int TSP_BEST_PATH[TSP_MAX_CITIES + 1];
