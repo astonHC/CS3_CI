@@ -21,7 +21,7 @@
 #else
     #define USE_TSP
 
-    #define     TSP_MAX_CITIES      5           // MAX AMOUNT WE HAVE AT A GIVEN TIME
+    #define     TSP_MAX_CITIES      2           // MAX AMOUNT WE HAVE AT A GIVEN TIME
     #define     TSP_START           0           // DEFACTO START POINT FOR CITY INDEXXED AT 0
 
     #define     TSP_SEED()                      srand((unsigned int)time(NULL))     // RANDOM SEED WITH TYPE CAST
@@ -116,7 +116,7 @@
 
     #define TSP_ERROR_HANDLE(OP, ERROR, MSG, ...) \
                 do { \
-                    printf("[ERROR] %c -> %-18s " MSG "\n", \
+                    printf("[ERROR] %c -> %-18s -> " MSG "\n", \
                         (char)OP, TSP_ERR[ERROR], ##__VA_ARGS__); \
                 } while(0)
 
