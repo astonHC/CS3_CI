@@ -13,20 +13,15 @@ int main(void)
     TSP_STATE STATE;
     printf("HARRY CLARK - CS3_CI TSP SOLUTION\n");
     
-    if(TSP_INIT(&STATE) != 0)
-    {
-        fprintf(stderr, "FAILED TO INITIALISE TSP PROBLEM USING ALGORITHM: %s\n", TSP_ALGO_TYPE(STATE.ALGO));
-    }
+    TSP_INIT(&STATE);
 
     TSP_ADD_CITY(&STATE, "LONDON", 0, 0);
     TSP_ADD_CITY(&STATE, "PARIS", 344, 0);
+    TSP_ADD_CITY(&STATE, "MADRID", 1495, 173);
+    TSP_ADD_CITY(&STATE, "SHANGHAI", 5000, 2812);
 
     TSP_CALC_DIST(&STATE);
     TSP_NEAREST(&STATE);
-
-    printf("ALGORITHM: %s\n", TSP_ALGO_TYPE(STATE.ALGO));
-    printf("DISTANCE COVERED: %d\n", STATE.TOUR.TSP_TOTAL_DIST);
-
+    
     return 0;
 }
-
