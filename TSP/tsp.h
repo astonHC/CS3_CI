@@ -136,11 +136,11 @@
     // SIMPLE MACROS FOR HANDLING THE DISTANCE BETWEEN CITIES
     // PROVIDES MORE OF A VERBOSE EXPLAINATION FOR THE HANDLINGS
     // OF THE DISTANCES BETWEEN CITIES (HELPS ESP. FOR RANDOM)
-    #define TSP_DEBUG_DIST(OP, ERROR, FROM, TO, DIST, MSG, ...)                                    \
-            do {                                                                            \
-                printf("[DEBUG] %c -> %-18s -> FROM: %d, TO: %d, DIST: %d", MSG "\n",       \
-                    (char)OP, TSP_ERR[ERROR], FROM, TO, DIST, ##__VA_ARGS__);               \
-            } while(0)
+    #define TSP_DEBUG_DIST(OP, ERROR, FROM, TO, DIST, MSG, ...)                         \
+        do {                                                                            \
+            printf("[DEBUG] %c -> %s -> FROM: %d, TO: %d, DIST: %d" MSG "\n",           \
+                (char)OP, TSP_ERR[ERROR], FROM, TO, DIST, ##__VA_ARGS__);               \
+        } while(0)
 
     /////////////////////////////////////////////////////
     //             TSP FUNCTION PROTOTYPES
