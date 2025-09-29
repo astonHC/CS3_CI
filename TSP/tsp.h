@@ -14,13 +14,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #if defined(USE_TSP)
     #define USE_TSP
 #else
     #define USE_TSP
 
-    #define     TSP_MAX_CITIES      5
+    #define     TSP_MAX_CITIES      5           // MAX AMOUNT WE HAVE AT A GIVEN TIME
+    #define     TSP_START           0           // DEFACTO START POINT FOR CITY INDEXXED AT 0
+
+    #define     TSP_SEED()          srand((unsigned int)time(NULL))     // RANDOM SEED WITH TYPE CAST
 
         // SIMPLE IMPLEMENTATION FOR BEING ABLE TO CATCH
         // AND STRINGIFY ERROR MESSAGES FOR ALLOCATING STRUCTS
