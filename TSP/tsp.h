@@ -115,9 +115,15 @@
 
     } TSP_ERROR_OP;
 
+    #define TSP_HANDLE(OP, ERROR, MSG, ...) \
+                do { \
+                    printf("\n[INFO] %c -> %-18s   " MSG "\n", \
+                        (char)OP, TSP_ERR[ERROR], ##__VA_ARGS__); \
+                } while(0)
+
     #define TSP_ERROR_HANDLE(OP, ERROR, MSG, ...) \
                 do { \
-                    printf("[ERROR] %c -> %-18s -> " MSG "\n", \
+                    printf("[ERROR] %c -> %-18s   " MSG "\n", \
                         (char)OP, TSP_ERR[ERROR], ##__VA_ARGS__); \
                 } while(0)
 
@@ -151,7 +157,6 @@
     int TSP_EUC_DIST(const TSP_CITY*, const TSP_CITY*);
     void TSP_CALC_DIST(TSP_STATE*);
     int TSP_NEAREST(TSP_STATE*);
-    int TSP_BRUTE(TSP_STATE*);
     void TSP_RESULT(const TSP_STATE*);
 
     int TSP_RAND(TSP_STATE*);
