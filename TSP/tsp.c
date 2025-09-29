@@ -56,6 +56,7 @@ int TSP_INIT(TSP_STATE* STATE)
         }
     }
 
+    TSP_ERROR_HANDLE(NONE, TSP_ERROR_NONE, "\nTSP PARAMS:\n ALGORITHM: %s\n", TSP_ALGO_TYPE(STATE->ALGO));
     return 0;
 
     TSP_OOB:
@@ -134,7 +135,7 @@ void TSP_CALC_DIST(TSP_STATE* STATE)
                 STATE->DIST.MATRIX[INDEX][ITERATOR] = DISTANCE;
 
                 TSP_DEBUG_DIST(DIST, TSP_ERROR_NONE, INDEX, ITERATOR, DISTANCE, 
-                    " - %s TO %s", STATE->CITY[INDEX].NAME, STATE->CITY[ITERATOR].NAME);
+                    " - %s %s", STATE->CITY[INDEX].NAME, STATE->CITY[ITERATOR].NAME);
             }
             else
             {
@@ -186,9 +187,9 @@ int TSP_NEAREST(TSP_STATE* STATE)
         // NOW AFTER DETERMINING THE INDEX AGAINST THE NEAREST DISTANCE
         // WE CAN MAP THAT WE HAVE VISITED
         VISITED[NEAREST] = 1;
-        STATE->TOUR.TSP_PATH[PATHING++] = NEAREST;     // ADD THE NEAREST AND ADVANCE
-        BASE_DIST += NEAR_DIST;                          // ADD THE DISTANCE TO THE TOTAL
-        CURRENT_CITY = NEAREST;                          // UPDATE TO THE CURRENT CITY
+        STATE->TOUR.TSP_PATH[PATHING++] = NEAREST;          // ADD THE NEAREST AND ADVANCE
+        BASE_DIST += NEAR_DIST;                             // ADD THE DISTANCE TO THE TOTAL
+        CURRENT_CITY = NEAREST;                             // UPDATE TO THE CURRENT CITY
     }
 
     // NOW MAP THE DISTANCE COVERED TO THE MATRIX 
