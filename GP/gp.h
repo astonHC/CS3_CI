@@ -24,8 +24,15 @@
 #else
     #define USE_GP
 
-    #define     GP_MAX_POP                  100
-    #define     GP_MAX_TREE_DEPTH           6
+    #define     GP_MAX_POP                  100                 // MAXIMUM POPULATION
+    #define     GP_MAX_TREE_DEPTH           6                   // MAX DEPTH FOR TRAVERSAL
+    #define     GP_MAX_NODES                127                 
+    #define     GP_TOUR_SIZE                3                   // TOURNAMENT SELECTION SIZE
+    #define     GP_DIV_APPR                 0.001f              // APPROXMIATION VALUE TO HANDLE DIVISION BETTER
+
+
+    #define     GP_SEED()                   srand((unsigned int)time(NULL))
+    #define     GP_RAND()                   ((double)rand() / (double))         // LEVERAGE DOUBLE FOR GREATER FP ACCURACY
 
 #endif
 #endif
