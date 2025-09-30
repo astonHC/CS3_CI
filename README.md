@@ -13,6 +13,7 @@ Note that some of the implementation was made pre-emptively before the module be
 
 - [Evolutionary Computation](https://github.com/astonHC/CS3_CI/tree/main/EC)
 - [Travelling Salesman Problem](https://github.com/astonHC/CS3_CI/tree/main/TSP)
+- [Genetic Programming](http://github.com/astonHC/CS3_CI/tree/main/GP)
 
 ## Repository Structure & Building:
 
