@@ -34,5 +34,33 @@
     #define     GP_SEED()                   srand((unsigned int)time(NULL))
     #define     GP_RAND()                   ((double)rand() / (double))         // LEVERAGE DOUBLE FOR GREATER FP ACCURACY
 
+    // DEFINE THE OPERATIONS FOR THE GP
+    typedef enum
+    {
+        GP_ADD = 0,
+        GP_SUB,
+        GP_MUL,
+        GP_DIV,
+        GP_SIN,
+        GP_COS,
+        GP_LOG,
+        GP_EXP,
+        GP_OP_COUNT
+
+    } GP_OPERATOR;
+
+    // DEFINE THE TREE NODE STRUCTURE
+    // PRESUPPOSES AN OPERATION TYPE FOR UNDER
+    // THE HOOD DEMONSTRATON
+    typedef struct
+    {
+        GP_OPERATOR OP;
+        double VALUE;
+
+        struct GP_NODE* LEFT;
+        struct GP_NODE* RIGHT;
+
+    } GP_NODE;
+
 #endif
 #endif
