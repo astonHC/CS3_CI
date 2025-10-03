@@ -74,7 +74,7 @@
         typedef struct
         {
             PSO_PARTICLE PARTICLE[PSO_MAX_PARTICLES];
-            double GLOBAL_POS;
+            double GLOBAL_POS[PSO_MAX_DIMENSIONS];
             double GLOBAL_FITNESS;
             
             union
@@ -118,7 +118,7 @@
             {
                 double LOWER;
                 double UPPER;
-                
+
             } BOUNDS;
 
         } PSO;
