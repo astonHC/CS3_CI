@@ -34,9 +34,6 @@
     #define         PSO_COG                         1.5
     #define         PSO_SOC                         1.5
 
-    #define         PSO_LOWER                       (1 << 0)
-    #define         PSO_UPPER                       (1 << 1)
-
     #define         PSO_VALID_PARTICLE(VALUE, MAX)              ((VALUE) >= 0 && (VALUE) < (MAX))
     #define         PSO_VALID_DIMENSIONS(VALUE, MAX)            ((VALUE) >= 0 && (VALUE) < (MAX))
     #define         PSO_VALID_FITNESS(VALUE)                    (!isnan(VALUE) && !isinf(VALUE))
@@ -116,6 +113,13 @@
             PSO_GP GP;
             int DIMENSIONS;
             double CONV_THRESHOLD;
+
+            union
+            {
+                double LOWER;
+                double UPPER;
+                
+            } BOUNDS;
 
         } PSO;
 
