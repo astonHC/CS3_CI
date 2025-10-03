@@ -28,7 +28,32 @@
 
     #define         PSO_MAX_PARTICLES           30
     #define         PSO_MAX_ITERATIONS          100
-    #define         PS_MAX_DIMENSIONS           10
+    #define         PSO_MAX_DIMENSIONS           10
+
+    #define         PSO_WEIGHT                      0.8
+    #define         PSO_COG                         1.5
+    #define         PSO_SOC                         1.5
+
+    #define         PSO_LOWER                       (1 << 0)
+    #define         PSO_UPPER                       (1 << 1)
+
+    #define     PSO_MEM_ERROR(VALUE) \
+        do { \
+            if ((VALUE) == NULL) { \
+                printf("MEMORY ALLOCATION FAILED FOR %s, 0x%p\n", #VALUE, (void*)&(VALUE)); \
+                return 1; \
+            } \
+        } while(0)
+
+        // DEFINE THE FUNCTION TYPES FOR THE TYPE OF GP ALGO
+        // THIS MAY BE EXPANDED AT SOME POINT
+        typedef enum
+        {
+            PSO_SIMPLE,
+            PSO_VALLEY,
+
+        } PSO_FITNESS_TYPE;
+ 
 
 #endif
 #endif
