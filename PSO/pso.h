@@ -83,7 +83,7 @@
                 int ITERATION;
                 int CONVERGENCE;
                 
-            } PARTICLE;
+            } PARTICLE_PARAMS;
 
         }  PSO_SWARM;
 
@@ -119,7 +119,7 @@
                 double LOWER;
                 double UPPER;
 
-            } BOUNDS;
+            } BOUNDS_PARAMS;
 
         } PSO;
 
