@@ -102,24 +102,24 @@
 
         } PSO_GP;
 
+        typedef struct
+        {
+            double LOWER;
+            double UPPER;
+
+        } PSO_BOUNDS;
+
         // PSO STATE REPRESENTATION
         // FIELD ARRANGEMENTS MAY CHANGE TO BETTER ACCOMMODATE
         // FOR PADDING
         typedef struct
         {
             PSO_SWARM SWARM;
-            int BOUNDS;
+            PSO_BOUNDS BOUNDS[PSO_MAX_DIMENSIONS];
             PSO_FITNESS_TYPE FITNESS;
             PSO_GP GP;
             int DIMENSIONS;
             double CONV_THRESHOLD;
-
-            union
-            {
-                double LOWER;
-                double UPPER;
-
-            } BOUNDS_PARAMS;
 
         } PSO;
 
@@ -173,6 +173,7 @@
         /////////////////////////////////////////////////////
 
         int PSO_INIT(PSO*, int, PSO_FITNESS_TYPE);
+        void PSO_SET_BOUNDS(PSO*, int, double, double);
 
 #endif
 #endif
