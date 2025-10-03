@@ -37,6 +37,10 @@
     #define         PSO_LOWER                       (1 << 0)
     #define         PSO_UPPER                       (1 << 1)
 
+    #define         PSO_VALID_PARTICLE(VALUE, MAX)              ((VALUE) >= 0 && (VALUE) < (MAX))
+    #define         PSO_VALID_DIMENSIONS(VALUE, MAX)            ((VALUE) >= 0 && (VALUE) < (MAX))
+    #define         PSO_VALID_FITNESS(VALUE)                    (!isnan(VALUE) && !isinf(VALUE))
+
     #define     PSO_MEM_ERROR(VALUE) \
         do { \
             if ((VALUE) == NULL) { \
@@ -101,6 +105,9 @@
 
         } PSO_GP;
 
+        // PSO STATE REPRESENTATION
+        // FIELD ARRANGEMENTS MAY CHANGE TO BETTER ACCOMMODATE
+        // FOR PADDING
         typedef struct
         {
             PSO_SWARM SWARM;
@@ -133,6 +140,35 @@
             DIM = 'D'
 
         } PSO_ERROR_OP;
+
+
+        #define PSO_HANDLE(OP, ERROR, MSG, ...) \
+                do { \
+                    printf("\n[INFO] %c -> %-20s   " MSG "\n", \
+                        (char)OP, PSO_ERR[ERROR], ##__VA_ARGS__); \
+                } while(0)
+
+        #define PSO_ERROR_HANDLE(OP, ERROR, MSG, ...) \
+                do { \
+                    printf("[ERROR] %c -> %-20s   " MSG "\n", \
+                        (char)OP, PSO_ERR[ERROR], ##__VA_ARGS__); \
+                } while(0)
+
+        #define PSO_DEBUG_ITER(ITER, GBEST, MSG, ...) \
+                do { \
+                    printf("[ITER %3d] GBEST_FIT: %.6f   " MSG "\n", ITER, GBEST, ##__VA_ARGS__); \
+                } while(0)
+
+        #define PSO_FITNESS_NAME(VALUE) \
+            ((VALUE) == PSO_SIMPLE ? "SIMPLE" : \
+            (VALUE) == PSO_VALLEY ? "VALLEY" : \
+            "UNKNOWN")
+
+        /////////////////////////////////////////////////////
+        //             PSO FUNCTION PROTOTYPES
+        /////////////////////////////////////////////////////
+
+        int PSO_INIT(PSO*, int, PSO_FITNESS_TYPE);
 
 #endif
 #endif
